@@ -3,8 +3,7 @@
     "type": "library",
     "description": "PHP package for easy access to EveryPolitician data",
     "keywords": [
-        "andylolz",
-        "everypolitician-php"
+        "everypolitician"
     ],
     "homepage": "https://github.com/andylolz/everypolitician-php",
     "license": "MIT",
@@ -12,8 +11,7 @@
         {
             "name": "Andy Lulham",
             "email": "a.lulham@gmail.com",
-            "homepage": "https://treadsoft.ly",
-            "role": "Developer"
+            "homepage": "https://treadsoft.ly"
         }
     ],
     "require": {
