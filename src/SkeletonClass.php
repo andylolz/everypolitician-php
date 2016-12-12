@@ -1,6 +1,6 @@
 <?php
 
-namespace EveryPolitican\EveryPolitician;
+namespace EveryPolitician\EveryPolitician;
 
 class SkeletonClass
 {

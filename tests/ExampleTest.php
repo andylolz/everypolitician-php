@@ -1,6 +1,6 @@
 <?php
 
-namespace EveryPolitican\EveryPolitician;
+namespace EveryPolitician\EveryPolitician;
 
 class ExampleTest extends \PHPUnit_Framework_TestCase
 {

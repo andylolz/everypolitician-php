@@ -21,7 +21,7 @@ $ composer require andylolz/everypolitician
 ## Usage
 
 ``` php
-$skeleton = new EveryPolitican\EveryPolitician();
+$skeleton = new EveryPolitician\EveryPolitician();
 echo $skeleton->echoPhrase('Hello, League!');
 ```
 
