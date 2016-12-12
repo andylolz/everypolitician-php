@@ -1,5 +1,5 @@
 {
-    "name": "andylolz/everypolitician-php",
+    "name": "andylolz/everypolitician",
     "type": "library",
     "description": "PHP package for easy access to EveryPolitician data",
     "keywords": [
