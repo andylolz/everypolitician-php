@@ -1,18 +1,18 @@
 {
-    "name": ":vendor/:package_name",
+    "name": "andylolz/everypolitician-php",
     "type": "library",
-    "description": ":package_description",
+    "description": "PHP package for easy access to EveryPolitician data",
     "keywords": [
-        ":vendor",
-        ":package_name"
+        "andylolz",
+        "everypolitician-php"
     ],
-    "homepage": "https://github.com/:vendor/:package_name",
+    "homepage": "https://github.com/andylolz/everypolitician-php",
     "license": "MIT",
     "authors": [
         {
-            "name": ":author_name",
-            "email": ":author_email",
-            "homepage": ":author_website",
+            "name": "Andy Lulham",
+            "email": "a.lulham@gmail.com",
+            "homepage": "https://treadsoft.ly",
             "role": "Developer"
         }
     ],
@@ -25,12 +25,12 @@
     },
     "autoload": {
         "psr-4": {
-            ":vendor\\:package_name\\": "src"
+            "EveryPolitican\\EveryPolitician\\": "src"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            ":vendor\\:package_name\\": "tests"
+            "EveryPolitican\\EveryPolitician\\": "tests"
         }
     },
     "scripts": {
