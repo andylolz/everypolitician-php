@@ -7,8 +7,7 @@
 [![Quality Score][ico-code-quality]][link-code-quality]
 [![Total Downloads][ico-downloads]][link-downloads]
 
-This is where your description should go. Try and limit it to a paragraph or two, and maybe throw in a mention of what
-PSRs you support to avoid any confusion with users and contributors.
+A Python library for easy access to EveryPolitician data. This is essentially a port of [everypolitician-python](https://github.com/everypolitician/everypolitician-python), which is itself a port of [everypolitican-ruby](https://github.com/everypolitician/everypolitician-ruby).
 
 ## Install
 
@@ -20,13 +19,50 @@ $ composer require andylolz/everypolitician
 
 ## Usage
 
+Creating an instance of the EveryPolitican class allows you to access information on countries, their legislatures and legislative periods. Each country and legislature has a slug that can be used to reference them via the country and legislature methods:
+
 ``` php
-$ep = new EveryPolitician\EveryPolitician();
+use \EveryPolitician\EveryPolitician\EveryPolitician
+$ep = new EveryPolitician();
+
+$australia = $ep->country('Australia');
+$senate = $australia->legislature('Senate');
+echo (string) $senate; // <Legislature: Senate in Australia>
+
+$uk = $ep->country('UK');
+$houseOfCommons = $uk->legislature('Commons');
+
+$americanSamoa = $ep->country('American-Samoa');
+$houseOfRepresentatives = $americanSamoa->legislature('House');
+
+foreach ($ep->countries() as $country) {
+    echo $country->name.' has '.count($country->legislatures()).'legislatures';
+}
 ```
+
+By default this will get the EveryPolitician data and returns the most recent data. This data is found from the index file, called `countries.json`, which links to specific versions of other data files.
+
+If you want want to point to a different `countries.json` file, you can override the default URL using `::fromUrl`:
+
+``` php
+$ep = EveryPolitician::fromUrl('https://cdn.rawgit.com/everypolitician/everypolitician-data/080cb46/countries.json');
+```
+
+The example above is using a specific commit (indicated by the hash `080cb46`). If you want to use a local copy of `countries.json` you can instead create the object using the `::fromFilename` method, e.g.:
+
+``` php
+$ep = EveryPolitician::fromFilename('/home/andy/tmp/countries.json');
+```
+
+For more about `countries.json`, see [this description](http://docs.everypolitician.org/repo_structure.html).
+
+Remember that EveryPolitician data is frequently updated — see this information about [using EveryPolitician data](http://docs.everypolitician.org/use_the_data.html).
+
+More information on [the EveryPolitician site](http://docs.everypolitician.org/).
 
 ## Change log
 
-Please see [CHANGELOG](CHANGELOG.md) for more information what has changed recently.
+Please see [CHANGELOG](CHANGELOG.md) for information on what has changed recently.
 
 ## Testing
 
