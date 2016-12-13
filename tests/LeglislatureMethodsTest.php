@@ -2,7 +2,7 @@
 
 namespace EveryPolitician\EveryPolitician;
 
-use \GuzzleHttp;
+use \EveryPolitician\EveryPoliticianPopolo\Popolo;
 use \Mockery;
 use \PHPUnit_Framework_TestCase;
 
@@ -48,7 +48,6 @@ class LeglislatureMethodsTest extends PHPUnit_Framework_TestCase
     public function testPopoloCall()
     {
         $l = $this->legislatures[0];
-        $popolo = $l->popolo();
 
         $popoloUrl = 'https://cdn.rawgit.com/everypolitician/'
             .'everypolitician-data/ba00071/'
@@ -60,13 +59,12 @@ class LeglislatureMethodsTest extends PHPUnit_Framework_TestCase
     ]
 }
 NOW;
-        $response = new GuzzleHttp\Psr7\Response(200, ['Content-Type' => 'application/json'], $data);
-        return Mockery::mock('overload:\GuzzleHttp\Client')
-            ->shouldReceive('get')
+        Mockery::mock('alias:EveryPolitician\EveryPoliticianPopolo\Popolo')
+            ->shouldReceive('fromUrl')
             ->with($popoloUrl)
-            ->andReturn($response)
-            ->getMock();
+            ->andReturn(new Popolo($data));
 
+        $popolo = $l->popolo();
         $this->assertCount(1, $popolo->persons);
         $this->assertEquals('Joe Bloggs', $popolo->persons->first->name);
     }
