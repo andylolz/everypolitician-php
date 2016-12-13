@@ -38,4 +38,30 @@ class LeglislatureMethodsTest extends \PHPUnit_Framework_TestCase
         $l = $this->legislatures[0];
         $this->assertEquals('Argentina/Diputados', $l->directory());
     }
+
+    public function testPopoloCall()
+    {
+        $l = $this->legislatures[0];
+        $popolo = $l->popolo();
+
+        $popoloUrl = 'https://cdn.rawgit.com/everypolitician/'
+            .'everypolitician-data/ba00071/'
+            .'data/Argentina/Diputados/ep-popolo-v1.0.json';
+        $data = <<<'NOW'
+{
+    'persons': [
+        {'name': 'Joe Bloggs'}
+    ]
+}
+NOW;
+        $response = new GuzzleHttp\Psr7\Response(200, ['Content-Type' => 'application/json'], $data);
+        return Mockery::mock('overload:\GuzzleHttp\Client')
+            ->shouldReceive('get')
+            ->with($popoloUrl)
+            ->andReturn($response)
+            ->getMock();
+
+        $this->assertCount(1, $popolo->persons);
+        $this->assertEquals('Joe Bloggs', $popolo->persons->first->name);
+    }
 }

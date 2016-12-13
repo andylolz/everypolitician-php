@@ -3,6 +3,7 @@
 namespace EveryPolitician\EveryPolitician;
 
 use \DateTime;
+use \EveryPolitician\EveryPoliticianPopolo\Popolo;
 
 class Legislature
 {
@@ -48,5 +49,10 @@ class Legislature
         $splitPath = explode('/', $this->legislatureData['sources_directory']);
         $splitPath = array_slice($splitPath, 1, 2);
         return implode('/', $splitPath);
+    }
+
+    public function popolo()
+    {
+        return Popolo::fromUrl($this->popoloUrl);
     }
 }
