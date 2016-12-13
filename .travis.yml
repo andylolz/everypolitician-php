@@ -1,9 +1,18 @@
 language: php
 
-php:
-  - 5.6
-  - 7.0
-  - 7.1
+matrix:
+  include:
+    - php: 5.6
+      env: COLLECT_COVERAGE=true VALIDATE_CODING_STYLE=true
+    - php: 7.0
+      env: COLLECT_COVERAGE=true VALIDATE_CODING_STYLE=false
+    - php: 7.1
+      env: COLLECT_COVERAGE=true VALIDATE_CODING_STYLE=false
+    - php: hhvm
+      env: COLLECT_COVERAGE=false VALIDATE_CODING_STYLE=false
+  allow_failures:
+    - php: hhvm
+  fast_finish: true
 
 # This triggers builds to run on the new TravisCI infrastructure.
 # See: http://docs.travis-ci.com/user/workers/container-based-infrastructure/
@@ -14,22 +23,18 @@ cache:
   directories:
     - $HOME/.composer/cache
 
-matrix:
-  include:
-    - php: 5.6
-      env: 'COMPOSER_FLAGS="--prefer-stable --prefer-lowest"'
-
-before_script:
+before_install:
   - travis_retry composer self-update
+
+install:
   - travis_retry composer update ${COMPOSER_FLAGS} --no-interaction --prefer-dist
 
 script:
-  - vendor/bin/phpcs --standard=psr2 src/
   - vendor/bin/phpunit --coverage-text --coverage-clover=coverage.clover
 
 after_script:
-  - |
-    if [[ "$TRAVIS_PHP_VERSION" != '7.0' ]]; then
-      wget https://scrutinizer-ci.com/ocular.phar
-      php ocular.phar code-coverage:upload --format=php-clover coverage.clover
-    fi
+ - if [ "$COLLECT_COVERAGE" == "true" ]; then wget https://scrutinizer-ci.com/ocular.phar && php ocular.phar code-coverage:upload --format=php-clover coverage.clover; fi
+ - if [ "$VALIDATE_CODING_STYLE" == "true" ]; then composer phpcs fi
+
+notifications:
+  email: false
