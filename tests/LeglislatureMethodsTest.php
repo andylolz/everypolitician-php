@@ -4,13 +4,19 @@ namespace EveryPolitician\EveryPolitician;
 
 use \GuzzleHttp;
 use \Mockery;
+use \PHPUnit_Framework_TestCase;
 
-class LeglislatureMethodsTest extends \PHPUnit_Framework_TestCase
+/**
+ * @runTestsInSeparateProcesses
+ * @preserveGlobalState disabled
+ */
+class LeglislatureMethodsTest extends PHPUnit_Framework_TestCase
 {
     use FakeResponseTrait;
 
     public function setUp()
     {
+        date_default_timezone_set('Europe/London');
         $this->mockHttpCall();
 
         $this->ep = new EveryPolitician();

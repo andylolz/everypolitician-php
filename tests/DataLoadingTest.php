@@ -2,9 +2,20 @@
 
 namespace EveryPolitician\EveryPolitician;
 
-class DataLoadingTest extends \PHPUnit_Framework_TestCase
+use \PHPUnit_Framework_TestCase;
+
+/**
+ * @runTestsInSeparateProcesses
+ * @preserveGlobalState disabled
+ */
+class DataLoadingTest extends PHPUnit_Framework_TestCase
 {
     use FakeResponseTrait;
+
+    public function setUp()
+    {
+        date_default_timezone_set('Europe/London');
+    }
 
     public function testCreateEp()
     {

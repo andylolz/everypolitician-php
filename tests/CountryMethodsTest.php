@@ -2,12 +2,19 @@
 
 namespace EveryPolitician\EveryPolitician;
 
-class CountryMethodsTest extends \PHPUnit_Framework_TestCase
+use \PHPUnit_Framework_TestCase;
+
+/**
+ * @runTestsInSeparateProcesses
+ * @preserveGlobalState disabled
+ */
+class CountryMethodsTest extends PHPUnit_Framework_TestCase
 {
     use FakeResponseTrait;
 
     public function setUp()
     {
+        date_default_timezone_set('Europe/London');
         $this->mockHttpCall();
 
         $this->ep = new EveryPolitician();
