@@ -15,9 +15,16 @@ class Legislature
 
     public function __construct($legislatureData, $country)
     {
-        $properties = ['name', 'slug', 'personCount', 'sha', 'statementCount', 'popoloUrl'];
-        foreach ($properties as $k) {
-            $this->$k = array_key_exists($k, $legislatureData) ? $legislatureData[$k] : null;
+        $propertyMappings = [
+            'name' => 'name',
+            'slug' => 'slug',
+            'person_count' => 'personCount',
+            'sha' => 'sha',
+            'statement_count' => 'statementCount',
+            'popolo_url' => 'popoloUrl'
+        ];
+        foreach ($propertyMappings as $k => $v) {
+            $this->$v = array_key_exists($k, $legislatureData) ? $legislatureData[$k] : null;
         }
         $timestamp = $legislatureData['lastmod'];
         $this->lastmod = \DateTime::createFromFormat('U', $timestamp);
@@ -25,4 +32,18 @@ class Legislature
         $this->country = $country;
     }
 
+    public function __toString()
+    {
+        return '<Legislature: '.$this->name.' in '.$this->country->name.'>';
+    }
+
+    /**
+     * Return the directory path in the everypolitician-data repository
+     */
+    public function directory()
+    {
+        $splitPath = explode('/', $this->legislatureData['sources_directory']);
+        $splitPath = array_slice($splitPath, 1, 2);
+        return implode('/', $splitPath);
+    }
 }
