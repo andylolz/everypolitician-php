@@ -56,7 +56,7 @@ class EveryPolitician
         return new self(['url' => $url]);
     }
 
-    private function getCountriesJsonData()
+    private function countriesJsonData()
     {
         if (!is_null($this->countriesJsonData)) {
             return $this->countriesJsonData;
@@ -78,7 +78,7 @@ class EveryPolitician
     public function countries()
     {
         $countries = [];
-        $countriesData = $this->getCountriesJsonData();
+        $countriesData = $this->countriesJsonData();
         foreach ($countriesData as $countryData) {
             $countries[] = new Country($countryData);
         }
