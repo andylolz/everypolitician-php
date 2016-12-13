@@ -55,4 +55,16 @@ class Legislature
     {
         return Popolo::fromUrl($this->popoloUrl);
     }
+
+    /**
+     * Return all the known legislative periods for this legislature
+     */
+    public function legislativePeriods()
+    {
+        $legislativePeriods = [];
+        foreach ($this->legislatureData['legislative_periods'] as $lpData) {
+            $legislativePeriods[] = new LegislativePeriod($lpData, $this, $this->country);
+        }
+        return $legislativePeriods;
+    }
 }
