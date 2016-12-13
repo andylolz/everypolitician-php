@@ -59,10 +59,12 @@ class LeglislatureMethodsTest extends PHPUnit_Framework_TestCase
 //     ]
 // }
 // NOW;
-//         Mockery::mock('alias:EveryPolitician\EveryPoliticianPopolo\Popolo')
+//         // I _cannot_ get this to work.
+//         // Mocking and static methods just don't mix
+//         Mockery::mock('alias:EveryPolitician\EveryPoliticianPopolo\Popolo', [$data])
 //             ->shouldReceive('fromUrl')
 //             ->with($popoloUrl)
-//             ->andReturn(new Popolo($data));
+//             ->andReturn(Mockery::self());
 //
 //         $popolo = $l->popolo();
 //         $this->assertCount(1, $popolo->persons);
