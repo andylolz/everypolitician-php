@@ -2,6 +2,8 @@
 
 namespace EveryPolitician\EveryPolitician;
 
+use \DateTime;
+
 class Legislature
 {
     public $name;
@@ -28,7 +30,7 @@ class Legislature
             $this->$v = array_key_exists($k, $legislatureData) ? $legislatureData[$k] : null;
         }
         $timestamp = $legislatureData['lastmod'];
-        $this->lastmod = \DateTime::createFromFormat('U', $timestamp);
+        $this->lastmod = DateTime::createFromFormat('U', $timestamp);
         $this->legislatureData = $legislatureData;
         $this->country = $country;
     }

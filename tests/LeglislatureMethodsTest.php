@@ -2,6 +2,9 @@
 
 namespace EveryPolitician\EveryPolitician;
 
+use \GuzzleHttp;
+use \Mockery;
+
 class LeglislatureMethodsTest extends \PHPUnit_Framework_TestCase
 {
     use FakeResponseTrait;

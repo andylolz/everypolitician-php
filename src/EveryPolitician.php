@@ -2,6 +2,8 @@
 
 namespace EveryPolitician\EveryPolitician;
 
+use \GuzzleHttp;
+
 class EveryPolitician
 {
     private $countriesJsonFilename;
@@ -63,7 +65,7 @@ class EveryPolitician
             $f = file_get_contents($this->countriesJsonFilename);
             $this->countriesJsonData = json_decode($f, true);
         } else {
-            $client = new \GuzzleHttp\Client();
+            $client = new GuzzleHttp\Client();
             $response = $client->get($this->countriesJsonUrl);
             $this->countriesJsonData = json_decode($response->getBody(), true);
         }

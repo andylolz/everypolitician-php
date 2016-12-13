@@ -2,6 +2,8 @@
 
 namespace EveryPolitician\EveryPolitician\Exceptions;
 
-class NotFoundException extends \Exception
+use \Exception;
+
+class NotFoundException extends Exception
 {
 }
