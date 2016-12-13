@@ -10,6 +10,7 @@ class Legislature
     public $sha;
     public $statementCount;
     public $popoloUrl;
+    public $lastmod;
     protected $legislatureData;
     protected $country;
 
