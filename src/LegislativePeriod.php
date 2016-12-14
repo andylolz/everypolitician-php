@@ -5,6 +5,11 @@ namespace EveryPolitician\EveryPolitician;
 use \GuzzleHttp;
 use \League\Csv;
 
+/**
+ * @property string|null $startDate
+ * @property string|null $endDate
+ * @property string $csvUrl
+ */
 class LegislativePeriod
 {
     public $id;
