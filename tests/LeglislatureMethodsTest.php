@@ -45,29 +45,29 @@ class LeglislatureMethodsTest extends PHPUnit_Framework_TestCase
         $this->assertEquals('Argentina/Diputados', $l->directory());
     }
 
-//     public function testPopoloCall()
-//     {
-//         $l = $this->legislatures[0];
-//
-//         $popoloUrl = 'https://cdn.rawgit.com/everypolitician/'
-//             .'everypolitician-data/ba00071/'
-//             .'data/Argentina/Diputados/ep-popolo-v1.0.json';
-//         $data = <<<'NOW'
-// {
-//     'persons': [
-//         {'name': 'Joe Bloggs'}
-//     ]
-// }
-// NOW;
-//         // I _cannot_ get this to work.
-//         // Mocking and static methods just don't mix
-//         Mockery::mock('alias:EveryPolitician\EveryPoliticianPopolo\Popolo', [$data])
-//             ->shouldReceive('fromUrl')
-//             ->with($popoloUrl)
-//             ->andReturn(Mockery::self());
-//
-//         $popolo = $l->popolo();
-//         $this->assertCount(1, $popolo->persons);
-//         $this->assertEquals('Joe Bloggs', $popolo->persons->first->name);
-//     }
+    public function testPopoloCall()
+    {
+        $l = $this->legislatures[0];
+
+        $popoloUrl = 'https://cdn.rawgit.com/everypolitician/'
+            .'everypolitician-data/ba00071/'
+            .'data/Argentina/Diputados/ep-popolo-v1.0.json';
+        $data = <<<'NOW'
+{
+    'persons': [
+        {'name': 'Joe Bloggs'}
+    ]
+}
+NOW;
+        // I _cannot_ get this to work.
+        // Mocking and static methods just don't mix
+        Mockery::mock('alias:EveryPolitician\EveryPoliticianPopolo\Popolo', [$data])
+            ->shouldReceive('fromUrl')
+            ->with($popoloUrl)
+            ->andReturn(Mockery::self());
+
+        $popolo = $l->popolo();
+        $this->assertCount(1, $popolo->persons);
+        $this->assertEquals('Joe Bloggs', $popolo->persons->first->name);
+    }
 }
