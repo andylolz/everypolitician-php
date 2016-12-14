@@ -32,7 +32,6 @@ class EveryPolitician
                 break;
             default:
                 throw new \Exception('Type must be TYPE_URL or TYPE_FILENAME');
-                break;
         }
     }
 
