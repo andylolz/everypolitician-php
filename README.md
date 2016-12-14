@@ -22,7 +22,7 @@ $ composer require andylolz/everypolitician
 Creating an instance of the EveryPolitican class allows you to access information on countries, their legislatures and legislative periods. Each country and legislature has a slug that can be used to reference them via the country and legislature methods:
 
 ``` php
-use \EveryPolitician\EveryPolitician\EveryPolitician
+use \EveryPolitician\EveryPolitician\EveryPolitician;
 $ep = new EveryPolitician();
 
 $australia = $ep->country('Australia');
