@@ -6,54 +6,71 @@ use \GuzzleHttp;
 
 class EveryPolitician
 {
-    private $countriesJsonFilename;
-    private $countriesJsonUrl;
+    private $url;
+    private $filename;
     private $countriesJsonData;
 
+    const TYPE_FILENAME = 0;
+    const TYPE_URL      = 1;
     const DEFAULT_COUNTRIES_JSON_URL = 'https://raw.githubusercontent.com/'
         .'everypolitician/everypolitician-data/master/countries.json';
 
-    public function __construct($options = [])
+    /**
+     * Creates a new instance
+     *
+     * @param string $urlOrFilename URL or filename of Popolo json
+     * @param int $type the delimiters to consider
+     */
+    public function __construct($urlOrFilename = self::DEFAULT_COUNTRIES_JSON_URL, $type = self::TYPE_URL)
     {
-        if (!array_key_exists('filename', $options)) {
-            if (array_key_exists('url', $options)) {
-                $this->countriesJsonUrl = $options['url'];
-            } else {
-                $this->countriesJsonUrl = self::DEFAULT_COUNTRIES_JSON_URL;
-            }
-        } else {
-            $this->countriesJsonFilename = $options['filename'];
+        switch ($type) {
+            case static::TYPE_FILENAME:
+                $this->filename = $urlOrFilename;
+                break;
+            case static::TYPE_URL:
+                $this->url = $urlOrFilename;
+                break;
+            default:
+                throw new \Exception('Type must be TYPE_URL or TYPE_FILENAME');
+                break;
         }
     }
 
+    /**
+     * String representation of {@link EveryPolitician}
+     *
+     * @return string
+     */
     public function __toString()
     {
-        $body = !is_null($this->countriesJsonUrl) ? $this->countriesJsonUrl : $this->countriesJsonFilename;
-        return "<EveryPolitician: $body>";
+        $str = $this->url ?: $this->filename;
+        return '<EveryPolitician: '.$str.'>';
     }
 
     /**
-     * Construct from filename
+     * Return a new {@link EveryPolitician} from a filename
+     * of a Popolo json file
      *
-     * @param string $filename name of Popolo json file
+     * @param string $filename filename of a Popolo json file
      *
-     * @return $this
+     * @return static
      */
     public static function fromFilename($filename)
     {
-        return new self(['filename' => $filename]);
+        return new static($filename, static::TYPE_FILENAME);
     }
 
     /**
-     * Construct from URL
+     * Return a new {@link EveryPolitician} from a URL
+     * pointing to a Popolo json file
      *
-     * @param string $url location of Popolo json file
+     * @param string $url URL pointing to a Popolo json file
      *
-     * @return $this
+     * @return static
      */
     public static function fromUrl($url)
     {
-        return new self(['url' => $url]);
+        return new static($url, static::TYPE_URL);
     }
 
     private function countriesJsonData()
@@ -61,19 +78,21 @@ class EveryPolitician
         if (!is_null($this->countriesJsonData)) {
             return $this->countriesJsonData;
         }
-        if (!is_null($this->countriesJsonFilename)) {
-            $f = file_get_contents($this->countriesJsonFilename);
+        if (!is_null($this->filename)) {
+            $f = file_get_contents($this->filename);
             $this->countriesJsonData = json_decode($f, true);
         } else {
             $client = new GuzzleHttp\Client();
-            $response = $client->get($this->countriesJsonUrl);
+            $response = $client->get($this->url);
             $this->countriesJsonData = json_decode($response->getBody(), true);
         }
         return $this->countriesJsonData;
     }
 
     /**
-     * Return a list of all known countries
+     * Return a list of all known {@link Country}s
+     *
+     * @return Country[]
      */
     public function countries()
     {
@@ -86,7 +105,11 @@ class EveryPolitician
     }
 
     /**
-     * Return a Country object from a country slug
+     * Return a {@link Country} object from a country slug
+     *
+     * @param string $countrySlug slug identifying a country
+     *
+     * @return Country
      */
     public function country($countrySlug)
     {
@@ -99,7 +122,13 @@ class EveryPolitician
     }
 
     /**
-     * Return an array of Country and Legislature objects from their slugs
+     * Return an array containing a {@link Country} and a
+     * {@link Legislature} object from their slugs
+     *
+     * @param string $countrySlug slug identifying a country
+     * @param string $legislatureSlug slug identifying a legislature
+     *
+     * @return array
      */
     public function countryLegislature($countrySlug, $legislatureSlug)
     {

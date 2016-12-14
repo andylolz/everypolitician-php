@@ -17,6 +17,12 @@ class Legislature
     protected $legislatureData;
     protected $country;
 
+    /**
+     * Creates a new instance
+     *
+     * @param array $legislatureData Popolo legislature data
+     * @param Country @country country for this legislature
+     */
     public function __construct($legislatureData, $country)
     {
         $propertyMappings = [
@@ -36,6 +42,11 @@ class Legislature
         $this->country = $country;
     }
 
+    /**
+     * String representation of {@link Legislature}
+     *
+     * @return string
+     */
     public function __toString()
     {
         return '<Legislature: '.$this->name.' in '.$this->country->name.'>';
@@ -43,6 +54,8 @@ class Legislature
 
     /**
      * Return the directory path in the everypolitician-data repository
+     *
+     * @return string
      */
     public function directory()
     {
@@ -51,6 +64,11 @@ class Legislature
         return implode('/', $splitPath);
     }
 
+    /**
+     * Return a Popolo instance for this {@link Legislature}
+     *
+     * @return Popolo
+     */
     public function popolo()
     {
         return Popolo::fromUrl($this->popoloUrl);
@@ -58,6 +76,8 @@ class Legislature
 
     /**
      * Return all the known legislative periods for this legislature
+     *
+     * @return LegislativePeriod[]
      */
     public function legislativePeriods()
     {

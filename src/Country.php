@@ -10,6 +10,11 @@ class Country
     public $slug;
     protected $countryData;
 
+    /**
+     * Creates a new instance
+     *
+     * @param array $countryData Popolo country data
+     */
     public function __construct($countryData)
     {
         $properties = ['name', 'code', 'slug'];
@@ -19,16 +24,23 @@ class Country
         $this->countryData = $countryData;
     }
 
+    /**
+     * String representation of {@link Country}
+     *
+     * @return string
+     */
     public function __toString()
     {
         return '<Country: '.$this->name.'>';
     }
 
     /**
-     * Return all the legislatures known for this country
+     * Return all the {@link Legislature}s known for this {@link Country}
      *
-     * A legislature is a chamber of a parliament, e.g. the House of
+     * A {@link Legislature} is a chamber of a parliament, e.g. the House of
      * Commons in the UK.
+     *
+     * @return Legislature[]
      */
     public function legislatures()
     {
@@ -39,12 +51,18 @@ class Country
         }
         return $legislatures;
     }
-
+    /**
+     * Return a {@link Legislature} in this {@link Country} from its slug
+     *
+     * @param string $legislatureSlug slug identifying a legislature
+     *
+     * @return Legislature
+     */
     public function legislature($legislatureSlug)
     {
-        foreach ($this->legislatures() as $l) {
-            if ($l->slug == $legislatureSlug) {
-                return $l;
+        foreach ($this->legislatures() as $legislature) {
+            if ($legislature->slug == $legislatureSlug) {
+                return $legislature;
             }
         }
         throw new Exceptions\NotFoundException("Couldn't find the legislature with slug '$legislatureSlug'");

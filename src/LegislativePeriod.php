@@ -14,6 +14,13 @@ class LegislativePeriod
     protected $country;
     protected $legislativePeriodData;
 
+    /**
+     * Creates a new instance
+     *
+     * @param array $legislativePeriodData Popolo legislative period data
+     * @param Legislature $legislature legislature for this legislative period
+     * @param Country @country country for this legislative period
+     */
     public function __construct($legislativePeriodData, $legislature, $country)
     {
         $properties = ['id', 'name', 'slug'];
@@ -25,6 +32,13 @@ class LegislativePeriod
         $this->legislativePeriodData = $legislativePeriodData;
     }
 
+    /**
+     * Getter for public attributes
+     *
+     * @param string $prop the attribute to get
+     *
+     * @return mixed
+     */
     public function __get($prop)
     {
         if (in_array($prop, ['startDate', 'endDate', 'csvUrl'])) {
@@ -38,6 +52,8 @@ class LegislativePeriod
      * Return the start date of the legislative period
      *
      * If this is unknown, it returns null.
+     *
+     * @return string|null
      */
     private function getStartDate()
     {
@@ -51,6 +67,8 @@ class LegislativePeriod
      * Return the end date of the legislative period
      *
      * If this is unknown, it returns null.
+     *
+     * @return string|null
      */
     private function getEndDate()
     {
@@ -62,6 +80,8 @@ class LegislativePeriod
 
     /**
      * Return the URL to CSV of members during this legislative period
+     *
+     * @return string
      */
     private function getCsvUrl()
     {
@@ -75,6 +95,8 @@ class LegislativePeriod
      *
      * This returns a list of one dict per row of the CSV file, where
      * the keys are the column headers.
+     *
+     * @return array
      */
     public function csv()
     {
