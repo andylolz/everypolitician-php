@@ -7,7 +7,7 @@
 [![Quality Score][ico-code-quality]][link-code-quality]
 [![Total Downloads][ico-downloads]][link-downloads]
 
-A Python library for easy access to EveryPolitician data. This is essentially a port of [everypolitician-python](https://github.com/everypolitician/everypolitician-python), which is itself a port of [everypolitican-ruby](https://github.com/everypolitician/everypolitician-ruby).
+A PHP library for easy access to EveryPolitician data. This is essentially a port of [everypolitician-python](https://github.com/everypolitician/everypolitician-python), which is itself a port of [everypolitican-ruby](https://github.com/everypolitician/everypolitician-ruby).
 
 ## Install
 
